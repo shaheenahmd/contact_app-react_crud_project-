@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import './Hero.scss'
-import Form from '../userform/UserForm'
-
+import React, { useEffect, useState } from "react";
+import "./Hero.scss";
+import UserForm from "../userform/UserForm";
 
 const Hero = () => {
- 
-  // const [data,setData]=useState([])
-
   const [formData, setFormData] = useState({
     // Define your form fields here
     name: "",
@@ -15,54 +11,57 @@ const Hero = () => {
     gender: "",
     hobbies: "",
     favFood: "",
-    
   });
 
-  // useEffect(){
- 
-  // ,[]}
-
-  useEffect(()=>{
-      
-      for(let key in localStorage){
-        // console.log(localStorage.getItem(key));
-        // setData(localStorage.getItem(key))
-        const storedData = localStorage.getItem(key);
-        if (storedData) {
-          // Parse the JSON string back into an object
-          const Data = JSON.parse(storedData);
-          // console.log(Data);
-        
-
-          // Iterate over the parsed object and append each key-value pair to the FormData object
-          for (const key in Data) {
-          if (formDataObj.hasOwnProperty(key)) {
-            formData.append(key, Data[key]);
-          }
-}
-          //setFormData(Data, [name]=value)
-        }
-  
+  useEffect(() => {
+    for (const key in localStorage) {
+      const storedData = localStorage.getItem(key);
+      if (storedData) {
+        const Data = JSON.parse(storedData);
+        setFormData(Data);
       }
-    
-  },[])
- 
- 
-  
+    }
+  }, []);
+
   return (
-    <div className='hero'>
-        <div className='topArea'>
-            
-                <h3>LIST OF USERS</h3>
-                <Form/>
-                
+    <div className="hero">
+      <div className="topArea">
+        <h3>LIST OF USERS</h3>
+        <UserForm />
+      </div>
+
+      <div className="card-wrapper">
+
+        <div className="card">
+          <div className="card-head">
+            <div className="title">
+              <h2>Name</h2>
+              <div className="circle"></div>
+            </div>
+           
+          </div>
+          <hr />
+
+          <div className="card-body">
+            <h3>AGE :{formData.name}</h3>
+            <h3>DOB :{formData.age}</h3>
+            <h3>GENDER :{formData.gender}</h3>
+            <h3>FOOD : {formData.favFood}</h3>
+            <h3>HOBBIES : {formData.hobbies}</h3>
+          </div>
+          <hr />
+
+          <div className="card-bottom">
+            <button>DELETE</button>
+            <button>VIEW</button>
+            <button>EDIT</button>
+          </div>
         </div>
-        <div className="card-wrapper">
-            {console.log(formData , "hello")}
-        </div>
+      </div>
+      {/* card wrapper ends here */}
+
     </div>
+  );
+};
 
-  )
-}
-
-export default Hero
+export default Hero;

@@ -4,7 +4,7 @@ import "./UserForm.scss";
 const UserForm = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
-    // Define your form fields here
+    // Defining form fields here
     name: "",
     age: "",
     dob: "",
@@ -40,11 +40,9 @@ const UserForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
   
-    
-
     localStorage.setItem(formData.name, JSON.stringify(formData))
-    // const storedFormData = JSON.parse(localStorage.getItem('formData'));
-    // console.log(storedFormData)
+    const storedFormData = JSON.parse(localStorage.getItem('formData'));
+    console.log(storedFormData)
 
     // Close the modal
     closeModal();
@@ -101,7 +99,7 @@ const UserForm = () => {
                   <label htmlFor="">Favorate Food</label>
                   {/* <input type="" placeholder="Name" /> */}
                   <select name="favFood" id="" value={formData.favFood} onChange={handleSelectChange}>
-                    <option >Select item</option>
+                    <option >Select</option>
                     <option value="pizza">Pizza</option>
                     <option value="burger">Burger</option>
                     <option value="pasta">Pasta</option>
