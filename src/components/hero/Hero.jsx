@@ -30,7 +30,7 @@ const Hero = () => {
 
 
   const handleDelete=()=>{
-    
+   
   }
 
   const handleEdit=()=>{
@@ -45,7 +45,7 @@ const Hero = () => {
     <div className="hero">
     <div className="topArea">
       <h3>LIST OF USERS</h3>
-      <UserForm />
+      <UserForm value="ADD USER" />
     </div>
 
     <div className="card-wrapper">
@@ -72,7 +72,8 @@ const Hero = () => {
         <div className="card-bottom">
           <button onClick={handleDelete}>DELETE</button>
           <button onClick={handleView}>VIEW</button>
-          <button onClick={handleEdit}>EDIT</button>
+          {/* <button onClick={handleEdit}>EDIT</button> */}
+          <UserForm value=" EDIT" />
         </div>
       </div>
       ))}

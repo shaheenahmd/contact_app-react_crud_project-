@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./UserForm.scss";
 
-const UserForm = () => {
+const UserForm = ({value}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     // Defining form fields here
@@ -22,26 +22,39 @@ const UserForm = () => {
     setIsModalOpen(false);
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
 
-  //handling selectbox
-  const handleSelectChange = (e) => {
-    const favFood = e.target.value;
-    setFormData({ ...formData, favFood });
-  };
 
+  
   //handling radio buttons
   const [selectedOption, setSelectedOption] = useState('option1');
-
-  const handleRadioChange = (event) => {
-    setSelectedOption(event.target.value);
+  
+  const handleChange = (e) => {
+    const { name, value, type } = e.target;
+    if(type ==="radio"&&name==="gender")
+    {
+      setSelectedOption(value); // Update the selectedOption state
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
+    else if(type ==="selectbox"&&name==="favFood")
+    {
+      const favFood = e.target.value;
+      setFormData({ ...formData, favFood });
+    }
+    else
+    {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
+
+  
+
+
 
 
   // Handle form submission logic here
@@ -58,7 +71,7 @@ const UserForm = () => {
 
   return (
     <div>
-      <button onClick={openModal}>ADD USER</button>
+      <button onClick={openModal}>{value}</button>
 
       {isModalOpen ? (
         <div className="modal">
@@ -84,7 +97,7 @@ const UserForm = () => {
               <div className="row">
                 <div className="input-group">
                   <label htmlFor="">DOB</label>
-                  <input type="date" name="dob" required onChange={handleChange}  value={formData.dob} placeholder="Name" />
+                  <input type="date" name="dob" onChange={handleChange}  value={formData.dob} placeholder="Name" />
                 </div>
 
 
@@ -92,10 +105,10 @@ const UserForm = () => {
                 <div className="input-group">
                   <label htmlFor="">Gender</label>
                   <div>
-                    <input type="radio" id="male"   checked={selectedOption === 'male'} onChange={handleRadioChange}   value='male' checked={formData.gender=== 'male'} name="gender"  />
+                    <input type="radio" id="male"    onChange={handleChange}  value='male'  name="gender"  />
                     <label>Male</label>
 
-                    <input type="radio" id="female"   checked={selectedOption === 'female'} onChange={handleRadioChange}    value="female" name="gender" checked={formData.gender=== 'female'}  />
+                    <input type="radio" id="female"    onChange={handleChange}    value="female" name="gender"  />
                     <label >Female</label>
                   </div>
                 </div>
@@ -106,7 +119,7 @@ const UserForm = () => {
                 <div className="input-group">
                   <label htmlFor="">Favorate Food</label>
                   {/* <input type="" placeholder="Name" /> */}
-                  <select name="favFood" id="" required value={formData.favFood} onChange={handleSelectChange}>
+                  <select name="favFood" id="" required value={formData.favFood} onChange={handleChange}>
                     <option >Select</option>
                     <option value="pizza">Pizza</option>
                     <option value="burger">Burger</option>
@@ -116,7 +129,7 @@ const UserForm = () => {
 
                 <div className="input-group">
                   <label htmlFor="">Hobbies</label>
-                 <textarea name="hobbies" id="" cols="" rows="4" required value={formData.hobbies} onChange={handleChange}></textarea>
+                 <textarea name="hobbies" id="" cols="" rows="4" value={formData.hobbies} onChange={handleChange}></textarea>
                 </div>
               </div>
 
