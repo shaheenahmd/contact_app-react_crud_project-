@@ -13,54 +13,74 @@ const Hero = () => {
     favFood: "",
   });
 
-  useEffect(() => {
-    for (const key in localStorage) {
-      const storedData = localStorage.getItem(key);
-      if (storedData) {
-        const Data = JSON.parse(storedData);
-        setFormData(Data);
+  useEffect(()=>{
+      
+    const accumulatedFormData = [];
+      for(let key in localStorage)
+      {
+        const storedData = localStorage.getItem(key);
+        if (storedData) {
+          const data = JSON.parse(storedData);
+          accumulatedFormData.push(data);
+        }
       }
-    }
-  }, []);
+
+      setFormData(accumulatedFormData);
+  },[])
+
+
+  const handleDelete=()=>{
+    
+  }
+
+  const handleEdit=()=>{
+   
+  }
+
+  const handleView =()=>{
+
+  }
 
   return (
     <div className="hero">
-      <div className="topArea">
-        <h3>LIST OF USERS</h3>
-        <UserForm />
-      </div>
+    <div className="topArea">
+      <h3>LIST OF USERS</h3>
+      <UserForm />
+    </div>
 
-      <div className="card-wrapper">
-
-        <div className="card">
-          <div className="card-head">
-            <div className="title">
-              <h2>Name</h2>
-              <div className="circle"></div>
-            </div>
-           
+    <div className="card-wrapper">
+    {Object.keys(formData).map((key, index) => (
+      <div key={index} className="card">
+        <div className="card-head">
+          <div className="title">
+            <h3>{formData[key].name}</h3>
+            <div className="circle"></div>
           </div>
-          <hr />
+         
+        </div>
+        <hr />
 
-          <div className="card-body">
-            <h3>AGE :{formData.name}</h3>
-            <h3>DOB :{formData.age}</h3>
-            <h3>GENDER :{formData.gender}</h3>
-            <h3>FOOD : {formData.favFood}</h3>
-            <h3>HOBBIES : {formData.hobbies}</h3>
-          </div>
-          <hr />
+        <div className="card-body">
+          <h3>AGE : {formData[key].age}</h3>
+          <h3>DOB :{formData[key].dob}</h3>
+          <h3>GENDER :{formData[key].gender}</h3>
+          <h3>FOOD : {formData[key].favFood}</h3>
+          <h3>HOBBIES : {formData[key].hobbies}</h3>
+        </div>
+        <hr />
 
-          <div className="card-bottom">
-            <button>DELETE</button>
-            <button>VIEW</button>
-            <button>EDIT</button>
-          </div>
+        <div className="card-bottom">
+          <button onClick={handleDelete}>DELETE</button>
+          <button onClick={handleView}>VIEW</button>
+          <button onClick={handleEdit}>EDIT</button>
         </div>
       </div>
-      {/* card wrapper ends here */}
+      ))}
 
     </div>
+    {/* card wrapper ends here */}
+
+  </div>
   );
 };
 

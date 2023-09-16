@@ -30,11 +30,19 @@ const UserForm = () => {
     });
   };
 
-  // selectbox
+  //handling selectbox
   const handleSelectChange = (e) => {
     const favFood = e.target.value;
     setFormData({ ...formData, favFood });
   };
+
+  //handling radio buttons
+  const [selectedOption, setSelectedOption] = useState('option1');
+
+  const handleRadioChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
 
   // Handle form submission logic here
   const handleSubmit = (e) => {
@@ -43,7 +51,7 @@ const UserForm = () => {
     localStorage.setItem(formData.name, JSON.stringify(formData))
     const storedFormData = JSON.parse(localStorage.getItem('formData'));
     console.log(storedFormData)
-
+    
     // Close the modal
     closeModal();
   };
@@ -65,18 +73,18 @@ const UserForm = () => {
               <div className="row">
                 <div className="input-group">
                   <label >Name</label>
-                  <input type="text" name="name" onChange={handleChange}  value={formData.name}   placeholder="Name" />
+                  <input type="text" name="name" required onChange={handleChange}  value={formData.name}   placeholder="Name" />
                 </div>
                 <div className="input-group">
                   <label>Age</label>
-                  <input type="text" name="age"  value={formData.age} onChange={handleChange}  placeholder="Age" />
+                  <input type="text" name="age" required  value={formData.age} onChange={handleChange}  placeholder="Age" />
                 </div>
               </div>
 
               <div className="row">
                 <div className="input-group">
                   <label htmlFor="">DOB</label>
-                  <input type="date" name="dob" onChange={handleChange}  value={formData.dob} placeholder="Name" />
+                  <input type="date" name="dob" required onChange={handleChange}  value={formData.dob} placeholder="Name" />
                 </div>
 
 
@@ -84,10 +92,10 @@ const UserForm = () => {
                 <div className="input-group">
                   <label htmlFor="">Gender</label>
                   <div>
-                    <input type="radio" id="male" onChange={handleSelectChange}   value='male' checked={formData.gender=== 'male'} name="gender"  />
+                    <input type="radio" id="male"   checked={selectedOption === 'male'} onChange={handleRadioChange}   value='male' checked={formData.gender=== 'male'} name="gender"  />
                     <label>Male</label>
 
-                    <input type="radio" id="female" onChange={handleSelectChange}  value="female" name="gender" checked={formData.gender=== 'female'}  />
+                    <input type="radio" id="female"   checked={selectedOption === 'female'} onChange={handleRadioChange}    value="female" name="gender" checked={formData.gender=== 'female'}  />
                     <label >Female</label>
                   </div>
                 </div>
@@ -98,7 +106,7 @@ const UserForm = () => {
                 <div className="input-group">
                   <label htmlFor="">Favorate Food</label>
                   {/* <input type="" placeholder="Name" /> */}
-                  <select name="favFood" id="" value={formData.favFood} onChange={handleSelectChange}>
+                  <select name="favFood" id="" required value={formData.favFood} onChange={handleSelectChange}>
                     <option >Select</option>
                     <option value="pizza">Pizza</option>
                     <option value="burger">Burger</option>
@@ -108,7 +116,7 @@ const UserForm = () => {
 
                 <div className="input-group">
                   <label htmlFor="">Hobbies</label>
-                 <textarea name="hobbies" id="" cols="" rows="4" value={formData.hobbies} onChange={handleChange}></textarea>
+                 <textarea name="hobbies" id="" cols="" rows="4" required value={formData.hobbies} onChange={handleChange}></textarea>
                 </div>
               </div>
 

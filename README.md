@@ -68,3 +68,49 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+
+
+
+
+
+
+ <div className="hero">
+      <div className="topArea">
+        <h3>LIST OF USERS</h3>
+        <UserForm />
+      </div>
+
+      <div className="card-wrapper">
+
+        <div className="card">
+          <div className="card-head">
+            <div className="title">
+              <h2>Name</h2>
+              <div className="circle"></div>
+            </div>
+           
+          </div>
+          <hr />
+
+          <div className="card-body">
+            <h3>AGE :{formData.name}</h3>
+            <h3>DOB :{formData.age}</h3>
+            <h3>GENDER :{formData.gender}</h3>
+            <h3>FOOD : {formData.favFood}</h3>
+            <h3>HOBBIES : {formData.hobbies}</h3>
+          </div>
+          <hr />
+
+          <div className="card-bottom">
+            <button>DELETE</button>
+            <button>VIEW</button>
+            <button>EDIT</button>
+          </div>
+        </div>
+      </div>
+      {/* card wrapper ends here */}
+
+    </div>
