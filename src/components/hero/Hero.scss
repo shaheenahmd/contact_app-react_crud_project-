@@ -1,0 +1,25 @@
+.hero{
+    // background-color: red;
+    padding: 40px 5%;
+
+    .topArea{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h3{
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        button{
+            padding: 10px 15px;
+            background-color: #1677FF;
+            color: white;
+            cursor: pointer;
+            border: none;
+            font-size: 15PX;
+            border-radius: 5px;
+        }
+    }
+}
