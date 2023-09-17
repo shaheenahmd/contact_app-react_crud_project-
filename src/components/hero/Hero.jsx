@@ -4,7 +4,7 @@ import UserForm from "../userform/UserForm";
 
 const Hero = () => {
   const [formData, setFormData] = useState({
-    // Define your form fields here
+    id:"",
     name: "",
     age: "",
     dob: "",
@@ -13,75 +13,114 @@ const Hero = () => {
     favFood: "",
   });
 
-  useEffect(()=>{
-      
+  // const [editData, setEditData] = useState(null); // User data to be edited
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const updateUserList = () =>{
     const accumulatedFormData = [];
-      for(let key in localStorage)
-      {
-        const storedData = localStorage.getItem(key);
-        if (storedData) {
-          const data = JSON.parse(storedData);
-          accumulatedFormData.push(data);
-        }
+    for (let key in localStorage) {
+      const storedData = localStorage.getItem(key);
+      if (storedData) {
+        const data = JSON.parse(storedData);
+        accumulatedFormData.push(data);
+      }
+    }
+    setFormData(accumulatedFormData);
+  }
+
+  // callback function to handle the button click
+  const handleChildSubmitClick = () => {
+    updateUserList();
+  };
+
+
+
+
+  useEffect(() => {
+    updateUserList();
+  }, []);
+
+
+
+
+  const handleDelete = (key) => {
+    localStorage.removeItem(formData[key].id);
+    updateUserList();
+  };
+
+
+
+  const setColor = (key)=>{
+    let age=formData[key].age;
+      if (age<=25) {
+        return "green"
+      }
+      
+      else if(age>25 && age<=50){
+        return "purple"
       }
 
-      setFormData(accumulatedFormData);
-  },[])
-
-
-  const handleDelete=()=>{
-   
+      else{
+        return "orange"
+      }
   }
 
-  const handleEdit=()=>{
-   
-  }
 
-  const handleView =()=>{
-
-  }
-
+  // funtion returns start here
   return (
     <div className="hero">
-    <div className="topArea">
-      <h3>LIST OF USERS</h3>
-      <UserForm value="ADD USER" />
-    </div>
-
-    <div className="card-wrapper">
-    {Object.keys(formData).map((key, index) => (
-      <div key={index} className="card">
-        <div className="card-head">
-          <div className="title">
-            <h3>{formData[key].name}</h3>
-            <div className="circle"></div>
-          </div>
-         
-        </div>
-        <hr />
-
-        <div className="card-body">
-          <h3>AGE : {formData[key].age}</h3>
-          <h3>DOB :{formData[key].dob}</h3>
-          <h3>GENDER :{formData[key].gender}</h3>
-          <h3>FOOD : {formData[key].favFood}</h3>
-          <h3>HOBBIES : {formData[key].hobbies}</h3>
-        </div>
-        <hr />
-
-        <div className="card-bottom">
-          <button onClick={handleDelete}>DELETE</button>
-          <button onClick={handleView}>VIEW</button>
-          {/* <button onClick={handleEdit}>EDIT</button> */}
-          <UserForm value=" EDIT" />
-        </div>
+      <div className="topArea">
+        <h3>LIST OF USERS</h3>
+        <div></div>
+        <UserForm value="ADD USER" btnVal="ADD USER DATA" onSubmit={handleChildSubmitClick} />
       </div>
-      ))}
 
+     
+      <div className="card-wrapper">
+        {Object.keys(formData).map((key, index) => (
+          <div key={index} className="card">
+            <div className="card-head">
+              <div className="title">
+                <h3>{formData[key].name}</h3>
+                <div style={{backgroundColor:setColor(key)}} className="circle"></div>
+              </div>
+            </div>
+            <hr />
+
+            <div className="card-body">
+              <h3>AGE : {formData[key].age}</h3>
+              <h3>DOB : {formData[key].dob}</h3>
+              <h3>GENDER : {formData[key].gender}</h3>
+              <h3>FOOD : {formData[key].favFood}</h3>
+              <h3>HOBBIES : {formData[key].hobbies}</h3>
+            </div>
+            <hr />
+
+            <div className="card-bottom">
+              <button className="delete-btn" onClick={() => handleDelete(key)}>DELETE</button>
+              {/* <button onClick={handleView}>VIEW</button> */}
+              
+              <UserForm 
+                value="EDIT"
+                editData={formData[key]}
+                btnVal="EDIT USER DATA"
+                onSubmit={handleChildSubmitClick} 
+              />
+
+              <UserForm 
+                value="VIEW"
+                editData={formData[key]}
+                btnVal="VIEW USER DATA"
+                viewMode = {true}
+
+              />
+              
+            </div>
+          </div>
+        ))}
+      </div>
+      {/* card wrapper ends here */}
     </div>
-    {/* card wrapper ends here */}
-
-  </div>
   );
 };
 

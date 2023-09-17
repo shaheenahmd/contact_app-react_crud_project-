@@ -35,7 +35,7 @@
 
         .card{
           
-            width:350px; 
+            width:400px; 
             height: auto;
             display: flex;
             flex-direction: column;
@@ -53,11 +53,22 @@
                     justify-content: space-between;
                     padding: 5px;
 
+                    h3{
+                        font-family: Roboto;
+                        font-size: 20px;
+                        font-weight: 500;
+                        line-height: 23px;
+                        letter-spacing: 0em;
+                        text-align: left;
+
+                        text-transform: uppercase;
+                    }
+
                     .circle{
                         height: 30px;
                         width: 30px;
                         border-radius: 50%;
-                        background-color: red;
+                        
                     }
                 }
 
@@ -70,6 +81,7 @@
                 h3{
                     font-size: 15px;
                     margin-bottom: 15px;
+                    text-transform: capitalize;
 
                     &:last-child{
                         margin-bottom: 0px;
@@ -90,12 +102,13 @@
                     cursor: pointer;
                     background-color: #1677FF;
                     border-radius: 5px;
-
+                    width: 97px;
                 
-                    &:first-child{
-                        background-color: red;
-                    }
+                   
                 }
+                .delete-btn{
+                    background-color: #F64F2A !important;
+               }
             }
         }
     
