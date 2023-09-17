@@ -28,14 +28,13 @@
         padding-top: 30px;
         display: grid;
         grid-template-columns: repeat(3,1fr);
-        row-gap: 30px;
+        gap: 30px;
 
 
        
 
         .card{
-          
-            width:400px; 
+            min-width: 300px; 
             height: auto;
             display: flex;
             flex-direction: column;
@@ -112,5 +111,19 @@
             }
         }
     
+    }
+
+    @media screen and (max-width:991px) {
+        .card-wrapper{
+            grid-template-columns: repeat(2,1fr);
+    
+            }
+        }
+
+    @media screen and (max-width:576px) {
+        .card-wrapper{
+            grid-template-columns: repeat(1,1fr);
+            
+        }
     }
 }

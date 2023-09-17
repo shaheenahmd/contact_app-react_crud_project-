@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import "./Hero.scss";
+import "./Dashbord.scss";
 import UserForm from "../userform/UserForm";
 
-const Hero = () => {
+const Dashbord = () => {
   const [formData, setFormData] = useState({
-    id:"",
+    id: "",
     name: "",
     age: "",
     dob: "",
@@ -13,10 +13,8 @@ const Hero = () => {
     favFood: "",
   });
 
-  // const [editData, setEditData] = useState(null); // User data to be edited
-  // const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const updateUserList = () =>{
+  const updateUserList = () => {
     const accumulatedFormData = [];
     for (let key in localStorage) {
       const storedData = localStorage.getItem(key);
@@ -26,45 +24,33 @@ const Hero = () => {
       }
     }
     setFormData(accumulatedFormData);
-  }
+  };
 
-  // callback function to handle the button click
+  // callback function to handle the submit button click
   const handleChildSubmitClick = () => {
     updateUserList();
   };
-
-
-
 
   useEffect(() => {
     updateUserList();
   }, []);
 
-
-
-
   const handleDelete = (key) => {
     localStorage.removeItem(formData[key].id);
     updateUserList();
+    console.log("hello");
   };
 
-
-
-  const setColor = (key)=>{
-    let age=formData[key].age;
-      if (age<=25) {
-        return "green"
-      }
-      
-      else if(age>25 && age<=50){
-        return "purple"
-      }
-
-      else{
-        return "orange"
-      }
-  }
-
+  const setColor = (key) => {
+    let age = formData[key].age;
+    if (age <= 25) {
+      return "green";
+    } else if (age > 25 && age <= 50) {
+      return "purple";
+    } else {
+      return "orange";
+    }
+  };
 
   // funtion returns start here
   return (
@@ -72,17 +58,23 @@ const Hero = () => {
       <div className="topArea">
         <h3>LIST OF USERS</h3>
         <div></div>
-        <UserForm value="ADD USER" btnVal="ADD USER DATA" onSubmit={handleChildSubmitClick} />
+        <UserForm
+          value="ADD USER"
+          btnVal="ADD USER DATA"
+          onSubmit={handleChildSubmitClick}
+        />
       </div>
 
-     
       <div className="card-wrapper">
         {Object.keys(formData).map((key, index) => (
           <div key={index} className="card">
             <div className="card-head">
               <div className="title">
                 <h3>{formData[key].name}</h3>
-                <div style={{backgroundColor:setColor(key)}} className="circle"></div>
+                <div
+                  style={{ backgroundColor: setColor(key) }}
+                  className="circle"
+                ></div>
               </div>
             </div>
             <hr />
@@ -97,24 +89,24 @@ const Hero = () => {
             <hr />
 
             <div className="card-bottom">
-              <button className="delete-btn" onClick={() => handleDelete(key)}>DELETE</button>
+              <button className="delete-btn" onClick={() => handleDelete(key)}>
+                DELETE
+              </button>
               {/* <button onClick={handleView}>VIEW</button> */}
-              
-              <UserForm 
+
+              <UserForm
                 value="EDIT"
                 editData={formData[key]}
                 btnVal="EDIT USER DATA"
-                onSubmit={handleChildSubmitClick} 
+                onSubmit={handleChildSubmitClick}
               />
 
-              <UserForm 
+              <UserForm
                 value="VIEW"
                 editData={formData[key]}
                 btnVal="VIEW USER DATA"
-                viewMode = {true}
-
+                viewMode={true}
               />
-              
             </div>
           </div>
         ))}
@@ -124,4 +116,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default Dashbord;

@@ -71,7 +71,7 @@ const UserForm = ({ value, onSubmit, editData, btnVal, viewMode }) => {
     let uniquId = new Date().getTime().toString();
     formData.id = uniquId
     localStorage.setItem(uniquId, JSON.stringify(formData));
-    const storedFormData = JSON.parse(localStorage.getItem("formData"));
+    // const storedFormData = JSON.parse(localStorage.getItem("formData"));
    
     if (typeof onSubmit === "function") {
       onSubmit(formData);
